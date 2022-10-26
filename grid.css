@@ -5,14 +5,16 @@
     box-sizing: border-box;
     font-family: 'Edu VIC WA NT Beginner', serif;
 }
+
 .wrapper {
+    position: relative;
+    margin-top: 50px;
     max-width: 100%;
     min-height: 100%;
     display: grid;
-    grid-template-rows: 80px minmax(30px, auto) minmax(100px, auto) 1fr 80px;
+    grid-template-rows: minmax(30px, auto) minmax(100px, auto) 1fr 80px;
     grid-template-columns: 20% 60% 20%;
     grid-template-areas:
-     "header header header"
      "left-aside up-bar up-bar"
      "left-aside content right-aside"
      "left-aside down-bar right-aside"
@@ -23,44 +25,14 @@
     display: none;
 }
 
-@media (max-width: 767px) {
-    .wrapper {
-        grid-template-rows: 80px minmax(30px, auto) minmax(30px, auto) 1fr minmax(30px, auto) minmax(30px, auto) 80px;
-        grid-template-columns: 1fr;
-        grid-template-areas: 
-        "header"
-        "left-aside"
-        "up-bar"
-        "content"
-        "right-aside"
-        "down-bar"
-        "footer";
-    }
-
-    /* .header__burger {
-        position: relative;
-        width: 30px;
-        height: 20px;
-    }
-
-    .header__burger:before,
-    .header__burger:after {
-        content: '';
-        background-color: white;
-        position: absolute;
-        width: 100%;
-        height: 2px;
-    } */
-}
-
-.right-aside, .up-bar, .down-bar, .content {
-    padding: 10px;
-}
-
 .header {
-    grid-area: header;
+    position: fixed;
+    height: 80px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 50;
     display: grid;
-    /* grid-template: 1f / 1f; */
     align-items: center;
 }
 
@@ -73,6 +45,108 @@
     display: grid;
     grid-template: 1fr / 150px repeat(3, 100px);
     align-items: center;
+}
+
+@media (max-width: 767px) {
+
+    .header {
+        height: 50px;
+    }
+
+    .container {
+        height: 20px;
+    }
+
+    .wrapper {
+        grid-template-rows: minmax(30px, auto) minmax(30px, auto) 1fr minmax(30px, auto) minmax(30px, auto) 80px;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "left-aside"
+        "up-bar"
+        "content"
+        "right-aside"
+        "down-bar"
+        "footer";
+    }
+
+    .header__burger {
+        display: block;
+        position: relative;
+        width: 30px;
+        height: 20px;
+        z-index: 2;
+    }
+
+    .header__burger:before,
+    .header__burger:after {
+        content: '';
+        background-color: white;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        transition: all 0.3s ease 0s;
+    }
+
+    .header__burger:before {
+        top: 0;
+    }
+
+    .header__burger:after {
+        bottom: 0;
+    }
+
+    .header__burger span {
+        position: absolute;
+        background-color: white;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        top: 9px;
+        transition: all 0.3s ease 0s;
+    }
+
+    .header__menu {
+        position: fixed;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #1f2021;
+        padding-top: 70px;
+        transition: all 0.4s ease 0s;
+    }
+
+    .header__menu.active {
+        top: 0;
+        transition: all 0.4s ease 0s;
+    }
+
+    .header__row {
+        display: block;
+    }
+
+    .title-header {
+        display: none;
+    }
+
+    .header__burger.active:before {
+        transform: rotate(45deg);
+        top: 9px;
+    }
+
+    .header__burger.active:after {
+        transform: rotate(-45deg);
+        bottom: 9px;
+    }
+
+    .header__burger.active span {
+        display: none;
+    }
+}
+
+.right-aside, .up-bar, .down-bar, .content {
+    padding: 10px;
 }
 
 .header, .footer {
